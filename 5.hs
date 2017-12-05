@@ -15,9 +15,9 @@ steps xs rule = (! 0) $ runSTUArray $ do
         pc <- readSTRef pcR
         if inRange bounds pc 
         then do
-           modifySTRef cntR (+ 1)
+           modifySTRef' cntR (+ 1)
            jump <- readArray instr pc
-           modifySTRef pcR (+ jump)
+           modifySTRef' pcR (+ jump)
            writeArray instr pc (rule jump)
            continue
         else readSTRef cntR >>= writeArray instr 0
